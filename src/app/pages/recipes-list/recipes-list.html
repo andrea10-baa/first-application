@@ -1,7 +1,44 @@
-<p> recipes-list works!</p>
+<p>recipes-list works!</p>
+
 <div class="recipes-list-container">
 
-  <!--<h1>Recipes List</h1>-->
+  <section>
+    <h3>Selección de filtros</h3>
+
+    <label>Por nombre
+      <input type="radio" value="NAME" [(ngModel)]="filterType" name="filterType">
+    </label>
+
+    <label>Por nivel de dificultad
+      <input type="radio" value="DIFFICULTY" [(ngModel)]="filterType" name="filterType">
+    </label>
+
+    <p>El tipo de filtro seleccionado es: {{ filterType }}</p>
+
+    @if (filterType === 'NAME') {
+    <label>
+      Nombre a buscar
+      <input type="text" placeholder="Ingrese el nombre de la receta" [(ngModel)]="name">
+    </label>
+    <p>El valor actual del input por búsqueda de nombre es: {{ name }}</p>
+    }
+
+    @if (filterType === 'DIFFICULTY') {
+    <label>
+      Opciones de dificultad
+      <select [(ngModel)]="difficulty">
+        <option value="">Seleccione una opción</option>
+        <option value="easy">Fácil</option>
+        <option value="medium">Medio</option>
+        <option value="hard">Difícil</option>
+      </select>
+    </label>
+    <p>El valor actual del input por dificultad es: {{ difficulty }}</p>
+    }
+
+    <button (click)="filterRecipesList()">Filtrar</button>
+
+  </section>
 
   <table>
 
@@ -16,7 +53,7 @@
 
     <tbody>
 
-    @for (recipe of recipesList().recipes; track recipe.id) {
+    @for (recipe of filteredRecipes(); track recipe.id) {
 
     <tr>
 
@@ -24,31 +61,9 @@
         {{ recipe.id }}
       </td>
 
-
       <td>
-        <div class="name-cell">
-
-          <img
-            class="recipe-thumb"
-            [src]="recipe.image"
-            [alt]="recipe.name"
-          >
-
-          <div class="name-info">
-
-            <h3>{{ recipe.name }}</h3>
-
-            <ul class="ingredients-mini">
-              @for (ingredient of recipe.ingredients; track ingredient) {
-              <li>{{ ingredient }}</li>
-              }
-            </ul>
-
-          </div>
-
-        </div>
+        {{ recipe.name }}
       </td>
-
 
       <td>
         {{ recipe.difficulty }}

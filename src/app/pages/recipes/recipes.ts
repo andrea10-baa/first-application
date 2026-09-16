@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -9,6 +10,14 @@ import { Component } from '@angular/core';
   styleUrl: './recipes.css'
 })
 export class Recipes {
+
+  _recipesListFilter: any[] = [];
+
+  constructor(private router: Router) {}
+
+  viewDetails(id: number) {
+    this.router.navigate(['/recipes-detail', id]);
+  }
 
   recipesList = {
     "recipes": [
