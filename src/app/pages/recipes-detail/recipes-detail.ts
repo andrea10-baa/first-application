@@ -1,38 +1,24 @@
-import {Component, signal} from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { Component, computed, input, signal } from '@angular/core';
+import { RECIPES_LIST_DATA } from '../../data/recipes-list-data';
 
 @Component({
-    selector: 'app-recipes-detail',
-    imports: [],
-    templateUrl: './recipes-detail.html',
-    styleUrl: './recipes-detail.css',
+  selector: 'app-recipes-detail',
+  imports: [],
+  templateUrl: './recipes-detail.html',
+  styleUrl: './recipes-detail.css',
 })
 export class RecipesDetail {
 
-  recipesList: any[] = [];
+  id = input<string>();
 
-  selectedRecipe = signal<any[]>([]);
+  recipesList = signal(RECIPES_LIST_DATA);
 
-  constructor(private route: ActivatedRoute) {}
-
-  async ngOnInit() {
-
-    const response = await fetch(
-      'https://dummyjson.com/recipes?limit=30'
-    );
-
-    const data = await response.json();
-
-    this.recipesList = data.recipes;
-
-    const id = this.route.snapshot.paramMap.get('id');
-
-    const filteredRecipes = this.recipesList.filter(
-      (elemento: any) => String(elemento.id) === id
-    );
-
-    this.selectedRecipe.set(filteredRecipes);
-
-  }
+  selectedRecipe = computed(() => {
+    return this.recipesList()
+      .recipes
+      .filter(
+        x => x.id === Number(this.id())
+      )
+  });
 
 }

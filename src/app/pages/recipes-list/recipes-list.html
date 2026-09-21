@@ -13,72 +13,48 @@
       <input type="radio" value="DIFFICULTY" [(ngModel)]="filterType" name="filterType">
     </label>
 
-    <p>El tipo de filtro seleccionado es: {{ filterType }}</p>
-
     @if (filterType === 'NAME') {
     <label>
       Nombre a buscar
-      <input type="text" placeholder="Ingrese el nombre de la receta" [(ngModel)]="name">
+      <input type="text" [(ngModel)]="_name">
     </label>
-    <p>El valor actual del input por búsqueda de nombre es: {{ name }}</p>
     }
 
     @if (filterType === 'DIFFICULTY') {
     <label>
       Opciones de dificultad
-      <select [(ngModel)]="difficulty">
+      <select [(ngModel)]="_difficulty">
         <option value="">Seleccione una opción</option>
         <option value="easy">Fácil</option>
         <option value="medium">Medio</option>
         <option value="hard">Difícil</option>
       </select>
     </label>
-    <p>El valor actual del input por dificultad es: {{ difficulty }}</p>
     }
 
-    <button (click)="filterRecipesList()">Filtrar</button>
-
+    <button (click)="filtrar()">Filtrar</button>
   </section>
 
   <table>
 
-    <thead>
+    <!-- @for (i of recipesList.recipes; track i.id) -->
+
+    @for (i of _recipesListFilter; track i.id) {
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Difficulty</th>
-      <th>Actions</th>
+      <td>{{ i.id }}</td>
+      <td>{{ i.name }}</td>
+      <td>{{ i.difficulty }}</td>
+      <td>
+        <a [routerLink]="['/recipes-detail', i.id]">View details (from tag a) </a>
+        <button (click)="viewDetails(i.id)">View details (from function)</button>
+        <a [routerLink]="['/recipes-detail-v2']"
+           [queryParams]="{'name': i.name, 'difficulty': i.difficulty}">View details (query params)
+        </a>
+      </td>
     </tr>
-    </thead>
-
-    <tbody>
-
-    @for (recipe of filteredRecipes(); track recipe.id) {
-
-    <tr>
-
-      <td>
-        {{ recipe.id }}
-      </td>
-
-      <td>
-        {{ recipe.name }}
-      </td>
-
-      <td>
-        {{ recipe.difficulty }}
-      </td>
-
-      <td class="actions">
-        <a [routerLink]="['/recipes-detail', recipe.id]">View details (from tag a)</a>
-        <button (click)="viewRecipe(recipe.id)">View details (from function)</button>
-      </td>
-
-    </tr>
-
+    } @empty {
+    <p>No se encontraron datos</p>
     }
-
-    </tbody>
 
   </table>
 
