@@ -13,7 +13,7 @@ export class RecipesDetail {
 
   recipesList = signal(RECIPES_LIST_DATA);
 
-  selectedRecipe = computed(() => {
+  filterRecipesList = computed(() => {
     return this.recipesList()
       .recipes
       .filter(

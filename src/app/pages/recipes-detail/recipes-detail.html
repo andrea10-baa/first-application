@@ -1,10 +1,10 @@
 <div class="recipes-detail-container">
 
-  @if (selectedRecipe().length > 0) {
+  @if (filterRecipesList().length > 0) {
 
   <h1>Recipe Details</h1>
 
-  @for (recipe of selectedRecipe(); track recipe.id) {
+  @for (recipe of filterRecipesList(); track recipe.id) {
 
   <div class="recipe-card">
 

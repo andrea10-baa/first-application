@@ -8,7 +8,7 @@
 
 @for (i of data; track i) {
   <article class="profile">
-    
+
     <div class="item">
       <h1>PERFIL</h1>
 
@@ -24,6 +24,26 @@
 
     <div class="item">
       <h1>H.CRÉDITO</h1>
+
+      <p>ID de crédito: {{ i.creditId }}</p>
+      <p>Monto del préstamo: Q{{ i.loanAmount }}</p>
+      <p>Tasa de interés: {{ i.interestRate }}%</p>
+      <p>Plazo: {{ i.termMonths }} meses</p>
+      <p>Saldo actual: Q{{ i.currentBalance }}</p>
+      <p>Estado: {{ i.creditStatus }}</p>
+
+      @if (i.creditHistory.length > 0) {
+      <h4>Historial de créditos anteriores</h4>
+      <ul>
+        @for (h of i.creditHistory; track h.pastCreditId) {
+        <li>
+          {{ h.pastCreditId }} — Q{{ h.amount }} — {{ h.status }} — {{ h.behavior }}
+        </li>
+        }
+      </ul>
+      } @else {
+      <p>Sin historial de créditos anteriores</p>
+      }
     </div>
 
   </article>

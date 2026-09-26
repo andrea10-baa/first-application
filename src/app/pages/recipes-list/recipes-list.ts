@@ -29,16 +29,48 @@ export class RecipesList {
     this._router.navigate(['recipes-detail', id]);
   }
 
-  // función unificada: lee filterType y decide qué filtro aplicar
-  filtrar() {
+  // true solo si hay un tipo de filtro elegido Y su valor no está vacío
+  get canFilter(): boolean {
     if (this.filterType === 'NAME') {
-      this._router.navigate(['recipes-detail-v2'], {
-        queryParams: {name: this._name}
-      });
+      return this._name.trim().length > 0;
+    }
+    if (this.filterType === 'DIFFICULTY') {
+      return this._difficulty.trim().length > 0;
+    }
+    return false;
+  }
+
+  // FILTRO LOCAL: filtra la tabla de esta misma página
+  filterRecipesList(): void {
+    if (this.filterType === 'NAME') {
+      this.filterRecipesListByName();
     } else if (this.filterType === 'DIFFICULTY') {
-      this._router.navigate(['recipes-detail-v2'], {
-        queryParams: {difficulty: this._difficulty}
-      });
+      this.filterRecipesListByDifficulty();
+    } else {
+      this._recipesListFilter = this.recipesList.recipes;
     }
   }
+
+  filterRecipesListByName(): void {
+    this._recipesListFilter = this.recipesList.recipes.filter((x) =>
+      x.name.toLowerCase().includes(this._name.toLowerCase())
+    );
+  }
+
+  filterRecipesListByDifficulty(): void {
+    this._recipesListFilter = this.recipesList.recipes.filter((x) =>
+      x.difficulty.toLowerCase().includes(this._difficulty.toLowerCase())
+    );
+  }
+
+  // FILTRO EXTERNO: redirige a recipes-detail-v2 con query params
+  filterRecipesListExternal(): void {
+    this._router.navigate(['recipes-detail-v2'], {
+      queryParams:
+        this.filterType === 'NAME'
+          ? { name: this._name }
+          : { difficulty: this._difficulty },
+    });
+  }
+
 }

@@ -5,7 +5,10 @@ import { Recipes } from './pages/recipes/recipes';
 import { RecipesDetail } from './pages/recipes-detail/recipes-detail';
 import { RecipesList } from './pages/recipes-list/recipes-list';
 import { RecipesDetailV2 } from './pages/recipes-detail-v2/recipes-detail-v2';
+import { UsersList } from './pages/users-list/users-list';
 
+
+let DemonSlayerCharacterList: any;
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
@@ -13,5 +16,6 @@ export const routes: Routes = [
   { path: 'recipes-list', component: RecipesList },
   { path: 'recipes-detail/:id', component: RecipesDetail },
   { path: 'recipes', component: Recipes },
-  { path: 'recipes-detail-v2', component: RecipesDetailV2 }
+  { path: 'users-list', component: UsersList },
+  { path: 'recipes-detail-v2', component: RecipesDetailV2 },
 ];

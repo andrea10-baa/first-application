@@ -10,7 +10,7 @@ describe('RecipesDetailV2', () => {
     await TestBed.configureTestingModule({
       imports: [RecipesDetailV2]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(RecipesDetailV2);
     component = fixture.componentInstance;
