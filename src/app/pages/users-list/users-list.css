@@ -1,0 +1,49 @@
+.users-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 18%);
+}
+
+.user-card h2 {
+  margin: 0;
+  color: #312e81;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.post-title {
+  margin: 0;
+  font-weight: bold;
+  color: #312e81;
+}
+
+.post-body {
+  margin: 0;
+  font-size: 14px;
+}
