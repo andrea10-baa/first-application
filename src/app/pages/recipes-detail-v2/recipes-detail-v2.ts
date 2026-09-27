@@ -18,12 +18,18 @@ export class RecipesDetailV2 {
   recipesList = signal(RECIPES_LIST_DATA);
 
   _recipesListFilter = computed(() => {
-    return this.recipesList()
-      .recipes
-      .filter(
-        x => x.name.toLowerCase().includes(this.name()?.toLowerCase() ?? '')
-          && x.difficulty.toLowerCase().includes(this.difficulty()?.toLowerCase() ?? '')
-      );
+    const name = this.name()?.toLowerCase() ?? '';
+    const difficulty = this.difficulty()?.toLowerCase() ?? '';
+
+    return this.recipesList().recipes.filter(x => {
+      if (name) {
+        return x.name.toLowerCase().includes(name);
+      }
+      if (difficulty) {
+        return x.difficulty.toLowerCase().includes(difficulty);
+      }
+      return false;
+    });
   });
 
   viewDetails(id: number) {

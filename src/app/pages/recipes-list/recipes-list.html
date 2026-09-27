@@ -1,5 +1,3 @@
-<p>recipes-list works!</p>
-
 <div class="recipes-list-container">
 
   <section>
@@ -46,27 +44,29 @@
 
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Difficulty</th>
-      <th>Actions</th>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>dificultad</th>
+      <th>acciones</th>
     </tr>
     </thead>
 
     <tbody>
 
-    @for (i of _recipesListFilter; track i.id) {
+    @for (i of _recipesListFilter; track i.id; let row = $index) {
     <tr>
-      <td>{{ i.id }}</td>
-      <td>{{ i.name }}</td>
+      <td>{{ row + 1 }}</td>
+      <td>{{ i.id }} - {{ i.name }}</td>
       <td>{{ i.difficulty }}</td>
       <td>
-        <a [routerLink]="['/recipes-detail', i.id]">View details (from tag a) </a>
-        <button (click)="viewDetails(i.id)">View details (from function)</button>
+        <a [routerLink]="['/recipes-detail', i.id]">Ver detalle (etiqueta a)</a>
+        <button type="button" (click)="viewDetails(i.id)">Ver detalle (botón)</button>
       </td>
     </tr>
     } @empty {
-    <p>No se encontraron datos</p>
+    <tr>
+      <td colspan="4">No se encontraron datos</td>
+    </tr>
     }
 
     </tbody>
